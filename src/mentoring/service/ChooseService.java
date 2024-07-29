@@ -13,7 +13,6 @@ public class ChooseService {
 		
 		while(true) {
 			Scanner sc = new Scanner(System.in);
-			System.out.println("\n\n\n\n\n\n\n");
 			System.out.println("=====초기 화면=====");
 			System.out.println("1. 멘토");
 			System.out.println("2. 멘티");
@@ -21,7 +20,7 @@ public class ChooseService {
 			System.out.println("=================");
 			System.out.print("번호 :  ");
 			int num = sc.nextInt();
-			System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
+			System.out.println("\n\n");
 			if(num == 1) {
 				MentorLoginService service = new MentorLoginService();
 				service.execute(userSequence);
@@ -32,7 +31,6 @@ public class ChooseService {
 			}
 			else if(num == 3) {
 				sc.close();
-				System.out.println("\n\n\n\n\n\n\n\n\n\n");
 				return;
 			}
 			else {

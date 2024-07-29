@@ -19,7 +19,7 @@ public class MentorLoginService implements MentorService {
 			System.out.println("=================");
 			System.out.print("번호 :  ");
 			int num = sc.nextInt();
-			System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
+			System.out.println("\n\n");
 			MentorService service = null;
 			if(num == 1) {
 				System.out.print("아이디 : ");
@@ -35,7 +35,6 @@ public class MentorLoginService implements MentorService {
 				
 			}
 			else if(num == 3) {
-				System.out.println("\n\n\n\n\n\n\n\n\n\n");
 				return;
 			}
 			else {

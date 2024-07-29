@@ -16,7 +16,7 @@ public class MenteeMainService implements MenteeService{
 		System.out.println("=================");
 		System.out.print("번호 :  ");
 		int num = sc.nextInt();
-		System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
+		System.out.println("\n\n");
 		
 		if(num == 1) {
 

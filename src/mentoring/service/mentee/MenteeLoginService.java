@@ -20,7 +20,7 @@ public class MenteeLoginService implements MenteeService{
 			
 			int num = sc.nextInt();
 			
-			System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
+			System.out.println("\n\n");
 			MenteeService service = null;
 			if(num == 1) {
 				System.out.print("아이디 : ");
