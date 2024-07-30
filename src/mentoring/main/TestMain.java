@@ -10,17 +10,19 @@ public class TestMain {
 		// TODO Auto-generated method stub
 		MenteeDAO menteeDAO = MenteeDAO.getInstance();
 		MenteeDTO menteeDTO =new MenteeDTO(); 
-		menteeDTO.setId("아이디 123");
-		menteeDTO.setPwd("123");		
-		int line=menteeDAO.Join(menteeDTO);
-		int mentee_seq=menteeDAO.Login("아이디 123", "123");
-		boolean idchek=menteeDAO.IdCheck("아이디 123");
+//		menteeDTO.setName("코코");
+//		menteeDTO.setId("아이디 123");
+//		menteeDTO.setPwd("123");		
+//		int line=menteeDAO.Join(menteeDTO);
+//		int mentee_seq=menteeDAO.Login("아이디 123", "123");
+//		boolean idchek=menteeDAO.IdCheck("아이디 123");
+		String  name =menteeDAO.MentoringCheck(7);
 
 		
-		
-		System.out.println(mentee_seq);
-		System.out.println(idchek);
-		System.out.println(line);
+		System.out.println(name);
+//		System.out.println(mentee_seq);
+//		System.out.println(idchek);
+//		System.out.println(line);
 	}
 
 }
