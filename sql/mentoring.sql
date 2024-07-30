@@ -27,3 +27,13 @@ mentor_seq number,
 mentee_seq number
 
 );
+
+CREATE SEQUENCE mentor_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
+CREATE SEQUENCE mentee_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
