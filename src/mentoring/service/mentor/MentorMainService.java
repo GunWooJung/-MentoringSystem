@@ -35,10 +35,9 @@ public class MentorMainService implements MentorService {
 			}else {
 				System.out.println("========메인화면[멘토]=======");
 				System.out.println("(현재 연결된 멘티) : "+mentee_name);
-				System.out.println("1. 멘티 요청 대기 목록");
-				System.out.println("2. 멘티 상세 정보 보기");
-				System.out.println("3. 멘토링 종료하기");
-				System.out.println("4. 이전");
+				System.out.println("1. 멘티 상세 정보 보기");
+				System.out.println("2. 멘토링 종료하기");
+				System.out.println("3. 이전");
 				System.out.println("=================");
 				System.out.print("번호 :  ");
 				int num = sc.nextInt();
@@ -47,13 +46,18 @@ public class MentorMainService implements MentorService {
 				if (num == 1) {
 					continue;
 				} else if (num == 2) {
-					continue;
+					/*
+					int result = dao.get(userSequence);
+					if(result == 1) {
+						System.out.println("멘토링이 종료되었습니다.");
+					}
+					else {
+						System.out.println("오류 : 삭제 실패");
+					}*/
 				} else if (num == 3) {
-					continue;
-				} else if (num == 4) {
 					return;
 				} else {
-					System.out.println("1 ~ 4만 선택하세요.");
+					System.out.println("1 ~ 3만 선택하세요.");
 				}
 			}
 		}

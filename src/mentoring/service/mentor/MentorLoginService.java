@@ -40,7 +40,7 @@ public class MentorLoginService implements MentorService {
 				} else { // 정상
 					//System.out.println(menetor_seq);
 					service = new MentorMainService();
-					service.execute(userSequence);
+					service.execute(menetor_seq);
 				}
 			} else if (num == 2) {
 

@@ -1,8 +1,10 @@
 package mentoring.service.mentee;
 
+import java.util.List;
 import java.util.Scanner;
 
 import mentee.dao.MenteeDAO;
+import mentoring.dto.MentorDTO;
 
 public class MenteeMainService implements MenteeService {
 
@@ -28,7 +30,35 @@ public class MenteeMainService implements MenteeService {
 				System.out.println("\n\n");
 
 				if (num == 1) {
-					continue;
+					System.out.println("어떤 분야로 조회하시겠습니까?");
+					System.out.println("1.프론트엔드 2. 백엔드 3. 네트워크\n4. 클라우드 5. 모든 분야");
+					int department = sc.nextInt();
+					// List<MentorDTO> list = dao.get(department);
+					if(department==1) {
+						System.out.println("--------프론트엔드-------");
+					}
+					else if(department==2) {
+						System.out.println("--------백엔드-------");
+					}
+					else if(department==3) {
+						System.out.println("--------네트워크-------");
+					}
+					else if(department==4) {
+						System.out.println("--------클라우드-------");
+					}
+					else if(department==5) {
+						System.out.println("--------모든 분야-------");
+					}
+					System.out.println("멘토 번호\t이름");
+					int mentor_seq = sc.nextInt();
+					// int result = dao.waiting(userSequence, mentor_seq);	
+					/*
+					if(result == 1) {
+						System.out.println("멘토링이 신청(대기상태)되었습니다.");
+					}
+					else {
+						System.out.println("등록 실패 : 오류가 발생했습니다.");
+					}*/
 				} else if (num == 2) {
 					continue;
 				} else if (num == 3) {
@@ -37,7 +67,6 @@ public class MenteeMainService implements MenteeService {
 					System.out.println("1 ~ 3만 선택하세요.");
 				}
 			} else {
-				mentor_name = "없음";
 				System.out.println("========메인화면[멘티]=======");
 				System.out.println("(현재 연결된 멘토) : " + mentor_name);
 				System.out.println("1. 멘토 상세 정보 보기 ");
@@ -48,7 +77,10 @@ public class MenteeMainService implements MenteeService {
 				System.out.println("\n\n");
 
 				if (num == 1) {
-					continue;
+					MentorDTO dto = dao.Mentorinformtion(userSequence);
+					System.out.println("이름\t분야\t전화번호\t이메일");
+					System.out.println(dto.getName()+"\t"+dto.getDepartment()
+							+"\t"+dto.getPhone()+"\t"+dto.getEmail());
 				} else if (num == 2) {
 					return;
 				}else {

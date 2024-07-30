@@ -140,8 +140,6 @@ public class MentorDAO {
 			pstmt.setInt(1, mentor_seq);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				rs.close();
-		        pstmt.close();
 				int mentee_seq = rs.getInt("mentee_seq");
 	            pstmt = con.prepareStatement(sql2);
 	            pstmt.setInt(1, mentee_seq);
