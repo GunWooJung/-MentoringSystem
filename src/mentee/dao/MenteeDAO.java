@@ -126,15 +126,16 @@ public void getCnnection() {
 	public int Join(MenteeDTO dto) {
 		int line=0;
 		getCnnection();
-		String sql="insert into   mentee values(mentee_seq.NEXTVAL,?,?,?,?)";
+		String sql="insert into   mentee values(mentee_seq.NEXTVAL,?,?,?,?,?)";
 		
 		try {
 			pstmt=con.prepareStatement(sql);
 			
-			pstmt.setString(1, dto.getId());
-			pstmt.setString(2, dto.getPwd());
-			pstmt.setString(3, dto.getEmail());
-			pstmt.setString(4, dto.getPhone());
+			pstmt.setString(1, dto.getName());
+			pstmt.setString(2, dto.getId());
+			pstmt.setString(3, dto.getPwd());
+			pstmt.setString(4, dto.getEmail());
+			pstmt.setString(5, dto.getPhone());
 			
 			line=pstmt.executeUpdate();
 			
@@ -154,6 +155,17 @@ public void getCnnection() {
 		
 		return line;
 		
+	}
+	
+	
+	public String  MentoringCheck(int mentee_seq) {
+		String name=null;
+		getCnnection();
+		
+		String sql="select mentor_seq from mentoring where mentee_seq =?";
+		
+		
+		return name;
 	}
 
 }

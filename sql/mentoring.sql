@@ -1,5 +1,6 @@
 create table mentor(
 mentor_seq number,
+name varchar2(15),
 id varchar2(15),
 pwd varchar2(20),
 department varchar2(30),
@@ -9,6 +10,7 @@ status number);
 
 CREATE TABLE mentee(
 mentee_seq  number,
+name varchar2(15),
 id varchar2(15),
 pwd  varchar2(20),
 email  varchar2(30),

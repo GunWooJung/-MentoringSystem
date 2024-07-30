@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 abstract public class UserDTO {
-
+	protected String name;
 	protected String id;
 	protected String pwd;
 	protected String email;
