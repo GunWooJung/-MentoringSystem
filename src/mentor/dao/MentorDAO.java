@@ -101,17 +101,17 @@ public class MentorDAO {
 	public int Join(MentorDTO dto) {
 		int su = 0;
 		getConnection();
-		String sql = "insert into mentor values(mentor_seq.NEXTVAL,?,?,?,?,?,?)";
+		String sql = "insert into mentor values(mentor_seq.NEXTVAL,?,?,?,?,?,?,?)";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
-	
-			pstmt.setString(1, dto.getId());
-			pstmt.setString(2, dto.getPwd());
-			pstmt.setString(3, dto.getDepartment());
-			pstmt.setString(4, dto.getEmail());
-			pstmt.setString(5, dto.getPhone());
-			pstmt.setInt(6, dto.getStatus());
+			pstmt.setString(1, dto.getName());
+			pstmt.setString(2, dto.getId());
+			pstmt.setString(3, dto.getPwd());
+			pstmt.setString(4, dto.getDepartment());
+			pstmt.setString(5, dto.getEmail());
+			pstmt.setString(6, dto.getPhone());
+			pstmt.setInt(7, dto.getStatus());
 			su = pstmt.executeUpdate();
 
 		}catch (SQLException e) {

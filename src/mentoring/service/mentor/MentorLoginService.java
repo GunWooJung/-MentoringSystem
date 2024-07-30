@@ -76,7 +76,7 @@ public class MentorLoginService implements MentorService {
 					}
 					if (department == null) {
 						System.out.println("1~4를 선택하세요.");
-						break;
+						continue;
 					}
 					System.out.print("이메일 : ");
 					String email = sc.next();
