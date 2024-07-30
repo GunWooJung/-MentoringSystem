@@ -37,7 +37,7 @@ public class MenteeLoginService implements MenteeService {
 				int menetee_seq = dao.Login(id, pwd);
 				if (menetee_seq == -1) {// 로그인 실패
 					System.out.println("아이디 또는 비밀 번호가 일치하지 않습니다.\n");
-					break;
+					continue;
 				} else { // 정상
 					service = new MenteeMainService();
 					service.execute(userSequence);
