@@ -13,9 +13,10 @@ public class MenteeMainService implements MenteeService {
 
 		while (true) {
 			Scanner sc = new Scanner(System.in);
-			//String mentor_name = dao.MentoringCheck(userSequence);
-			String mentor_name = "연결된 멘토";
+			String mentor_name = dao.MentoringCheck(userSequence);
+			//String mentor_name = "연결된 멘토";
 			if (mentor_name == null) {
+				mentor_name = "없음";
 				System.out.println("========메인화면[멘티]=======");
 				System.out.println("(현재 연결된 멘토) : " + mentor_name);
 				System.out.println("1. 멘토링 신청 ");

@@ -2,7 +2,6 @@ package mentoring.service.mentor;
 
 import java.util.Scanner;
 
-import mentee.dao.MenteeDAO;
 import mentor.dao.MentorDAO;
 
 public class MentorMainService implements MentorService {
@@ -13,8 +12,8 @@ public class MentorMainService implements MentorService {
 		MentorDAO dao = MentorDAO.getInstance();
 		while (true) {
 			Scanner sc = new Scanner(System.in);
-		//	String mentee_name = dao.MentoringCheck(userSequence);
-			String mentee_name = "멘티이름";
+			String mentee_name = dao.MentoringCheck(userSequence);
+		//	String mentee_name = "멘티이름";
 			if(mentee_name == null) {
 				mentee_name = "없음";
 				System.out.println("========메인화면[멘토]=======");

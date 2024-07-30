@@ -134,15 +134,15 @@ public class MentorDAO {
 		getConnection();
 		String sql = "select mentee_seq from mentoring where mentor_seq = ?";
 		String sql2 = "select name from mentee where mentee_seq = ?";
-		
+
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, mentor_seq);
 			rs = pstmt.executeQuery();
-			
 			if(rs.next()) {
+				rs.close();
+		        pstmt.close();
 				int mentee_seq = rs.getInt("mentee_seq");
-				
 	            pstmt = con.prepareStatement(sql2);
 	            pstmt.setInt(1, mentee_seq);
 	            rs = pstmt.executeQuery();

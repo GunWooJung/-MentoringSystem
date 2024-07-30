@@ -38,6 +38,7 @@ public class MentorLoginService implements MentorService {
 					System.out.println("아이디 또는 비밀 번호가 일치하지 않습니다.\n");
 					continue;
 				} else { // 정상
+					//System.out.println(menetor_seq);
 					service = new MentorMainService();
 					service.execute(userSequence);
 				}

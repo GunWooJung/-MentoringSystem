@@ -174,6 +174,9 @@ public void getCnnection() {
 			if(rs.next()) {
 				int mentor_seq=rs.getInt("mentor_seq");
 				
+				rs.close();
+		        pstmt.close();
+		            
 				String sql1="select * from mentor where mentor_seq = ?";
 				pstmt=con.prepareStatement(sql1);
 				pstmt.setInt(1,mentor_seq);
@@ -196,6 +199,7 @@ public void getCnnection() {
 			}
 		}
 		//System.out.println(name);
+		System.out.println(name);
 		return name;
 	}
 
