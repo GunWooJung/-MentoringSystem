@@ -57,7 +57,7 @@ public void getCnnection() {
 		}
 	}
 
-	public int Logun(String id, String password) {
+	public int Login(String id, String password) {
 		int mentee_seq =-1;
 		
 		getCnnection();
@@ -70,7 +70,7 @@ public void getCnnection() {
 			
 			rs =  pstmt.executeQuery();
 			
-			if(rs.next())mentee_seq=rs.getInt(mentee_seq);
+			if(rs.next())mentee_seq=rs.getInt("mentee_seq");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -132,7 +132,7 @@ public void getCnnection() {
 			pstmt=con.prepareStatement(sql);
 			
 			pstmt.setString(1, dto.getId());
-			pstmt.setString(2, dto.getPassword());
+			pstmt.setString(2, dto.getPwd());
 			pstmt.setString(3, dto.getEmail());
 			pstmt.setString(4, dto.getPhone());
 			
