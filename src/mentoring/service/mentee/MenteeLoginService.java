@@ -16,7 +16,7 @@ public class MenteeLoginService implements MenteeService {
 		// TODO Auto-generated method stub
 		while (true) {
 			Scanner sc = new Scanner(System.in);
-			System.out.println("========멘토=======");
+			System.out.println("========멘티=======");
 			System.out.println("1. 로그인");
 			System.out.println("2. 회원 가입");
 			System.out.println("3. 이전");
@@ -37,7 +37,7 @@ public class MenteeLoginService implements MenteeService {
 				int menetee_seq = dao.Login(id, pwd);
 				if (menetee_seq == -1) {// 로그인 실패
 					System.out.println("아이디 또는 비밀 번호가 일치하지 않습니다.\n");
-					break;
+					continue;
 				} else { // 정상
 					service = new MenteeMainService();
 					service.execute(userSequence);
@@ -56,29 +56,6 @@ public class MenteeLoginService implements MenteeService {
 					String pwd = sc.next();
 					System.out.print("이름 : ");
 					String name = sc.next();
-					System.out.print("현직 분야(숫자 선택) : ");
-					System.out.println("1. 프론트엔드. 2. 백엔드 3. 네트워크 " + "4. 클라우드");
-					int departmentNum = sc.nextInt();
-					String department = null;
-
-					switch (departmentNum) {
-					case 1:
-						department = "프론트엔드";
-						break;
-					case 2:
-						department = "백엔드";
-						break;
-					case 3:
-						department = "네트워크";
-						break;
-					case 4:
-						department = "클라우드";
-						break;
-					}
-					if (department == null) {
-						System.out.println("1~4를 선택하세요.");
-						break;
-					}
 					System.out.print("이메일 : ");
 					String email = sc.next();
 					System.out.print("핸드폰 번호 : ");

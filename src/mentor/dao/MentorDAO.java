@@ -101,17 +101,17 @@ public class MentorDAO {
 	public int Join(MentorDTO dto) {
 		int su = 0;
 		getConnection();
-		String sql = "insert into mentor values(mentor_seq.NEXTVAL,?,?,?,?,?,?)";
+		String sql = "insert into mentor values(mentor_seq.NEXTVAL,?,?,?,?,?,?,?)";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
-	
-			pstmt.setString(1, dto.getId());
-			pstmt.setString(2, dto.getPwd());
-			pstmt.setString(3, dto.getDepartment());
-			pstmt.setString(4, dto.getEmail());
-			pstmt.setString(5, dto.getPhone());
-			pstmt.setInt(6, dto.getStatus());
+			pstmt.setString(1, dto.getName());
+			pstmt.setString(2, dto.getId());
+			pstmt.setString(3, dto.getPwd());
+			pstmt.setString(4, dto.getDepartment());
+			pstmt.setString(5, dto.getEmail());
+			pstmt.setString(6, dto.getPhone());
+			pstmt.setInt(7, dto.getStatus());
 			su = pstmt.executeUpdate();
 
 		}catch (SQLException e) {
@@ -129,5 +129,43 @@ public class MentorDAO {
 		return su;
 	}
 	
+	public String MentoringCheck(int mentor_seq) {
+		String mentee_name = null;
+		getConnection();
+		String sql = "select mentee_seq from mentoring where mentor_seq = ?";
+		String sql2 = "select name from mentee where mentee_seq = ?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, mentor_seq);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				int mentee_seq = rs.getInt("mentee_seq");
+				
+	            pstmt = con.prepareStatement(sql2);
+	            pstmt.setInt(1, mentee_seq);
+	            rs = pstmt.executeQuery();
+	            
+	            if(rs.next()) {
+	            	mentee_name = rs.getString("name");
+	            }
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!= null) rs.close();
+				if(pstmt != null)
+					pstmt.close();
+				if(con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+		return mentee_name;
+	}
 	
 }

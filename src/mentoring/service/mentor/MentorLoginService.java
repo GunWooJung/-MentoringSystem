@@ -48,7 +48,7 @@ public class MentorLoginService implements MentorService {
 				boolean AlreadyId = dao.IdCheck(id);
 				if (AlreadyId == true) {
 					System.out.println("이미 존재하는 아이디입니다.");
-					break;
+					continue;
 				} else {
 
 					System.out.print("비밀 번호 : ");
@@ -76,7 +76,7 @@ public class MentorLoginService implements MentorService {
 					}
 					if (department == null) {
 						System.out.println("1~4를 선택하세요.");
-						break;
+						continue;
 					}
 					System.out.print("이메일 : ");
 					String email = sc.next();
