@@ -162,7 +162,7 @@ public void getCnnection() {
 		String name=null;
 		getCnnection();
 		
-		String sql="select mentor_seq from mentoring where mentee_seq =?";
+		String sql="select MENTOR_SEQ from MENTORING where  MENTEE_SEQ =?";
 		
 		try {
 			pstmt=con.prepareStatement(sql);
@@ -176,14 +176,26 @@ public void getCnnection() {
 				
 				String sql1="select * from mentor where mentor_seq = ?";
 				pstmt=con.prepareStatement(sql1);
-					
-				name=rs.getString("name");
+				pstmt.setInt(1,mentor_seq);
+				rs =  pstmt.executeQuery();
+				
+				if(rs.next())name=rs.getString("name");
+				
 			}
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(con!=null)con.close();
+				if(rs!=null)rs.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
+		//System.out.println(name);
 		return name;
 	}
 
