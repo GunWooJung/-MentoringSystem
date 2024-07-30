@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import mentoring.dto.MenteeDTO;
+import mentoring.dto.MentorDTO;
 
 
 public class MenteeDAO {
@@ -198,5 +199,33 @@ public void getCnnection() {
 		//System.out.println(name);
 		return name;
 	}
+	
+	public MentorDTO Mentorinformtion(int mentor_seq) {
+		
+		 MentorDTO dto =null;
+		 getCnnection();
+		 
+		 String sql="select * from mentor where mentor_seq = ?";
+		 try {
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1,mentor_seq);
+			rs =  pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dto=new  MentorDTO();
+				dto.setName(rs.getString("name"));
+				dto.setDepartment("department");
+				dto.setEmail(rs.getString("email"));
+				dto.setPhone(rs.getString("phone"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		 
+		return dto;
+		
+	}
+	
+	
 
 }
