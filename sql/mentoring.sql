@@ -9,6 +9,7 @@ status number);
 
 CREATE TABLE mentee(
 mentee_seq  number,
+id varchar2(15),
 pwd  varchar2(20),
 email  varchar2(30),
 phone  varchar2(15));
