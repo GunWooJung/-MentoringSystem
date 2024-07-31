@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import mentoring.dto.MenteeDTO;
 import mentoring.dto.MentorDTO;
@@ -292,5 +293,45 @@ public class MentorDAO {
 			}
 		}
 		return accept;
+	}
+	
+	public List<MenteeDTO> MenteeList(int mentor_seq){
+		List<MenteeDTO> menteeDTO = new ArrayList<>();
+		getConnection();
+		String sql = "select * from waiting where mentor_seq = ?";
+		String sql2 = "select * from waiting, mentee where waiting.mentee_seq = ?";
+		try {
+			pstmt  = con.prepareStatement(sql);
+			pstmt.setInt(1, mentor_seq);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				int mentee_seq = rs.getInt("mentee_seq");
+				pstmt = con.prepareStatement(sql2);
+				pstmt.setInt(1, mentee_seq);
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					MenteeDTO dto = new MenteeDTO();
+					dto.setName(rs.getString("name"));
+					
+					menteeDTO.add(dto);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null)
+					rs.close();
+				if(pstmt != null)
+					pstmt.close();
+				if(con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return menteeDTO;
 	}
 }
