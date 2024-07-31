@@ -3,6 +3,7 @@ package mentoring.main;
 import mentee.dao.MenteeDAO;
 import mentor.dao.MentorDAO;
 import mentoring.dto.MenteeDTO;
+import mentoring.dto.MentorDTO;
 import mentoring.service.ChooseService;
 
 public class TestMain {
@@ -12,11 +13,11 @@ public class TestMain {
 		MenteeDAO menteeDAO = MenteeDAO.getInstance();
 		MentorDAO mentorDAO = MentorDAO.getInstance();
 	
-		String  name =menteeDAO.MentoringCheck(7);
-		//System.out.println(name);
+		MentorDTO dto =menteeDAO.Mentorinformtion(2);
 		
-		MenteeDTO menteeDTO = mentorDAO.MenteeInformation(1);
-        System.out.println(menteeDTO.getName());
+		System.out.println(dto);
+		
+
 	}
 
 }

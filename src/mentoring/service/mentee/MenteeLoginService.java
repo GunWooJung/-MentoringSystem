@@ -40,7 +40,7 @@ public class MenteeLoginService implements MenteeService {
 					continue;
 				} else { // 정상
 					service = new MenteeMainService();
-					service.execute(userSequence);
+					service.execute(menetee_seq);
 				}
 			} else if (num == 2) {
 

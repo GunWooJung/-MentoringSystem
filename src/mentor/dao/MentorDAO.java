@@ -144,14 +144,13 @@ public class MentorDAO {
 
 			if(rs.next()) {
 				int mentee_seq = rs.getInt("mentee_seq");
-
-				pstmt = con.prepareStatement(sql2);
-				pstmt.setInt(1, mentee_seq);
-				rs = pstmt.executeQuery();
-
-				if(rs.next()) {
-					mentee_name = rs.getString("name");
-				}
+	            pstmt = con.prepareStatement(sql2);
+	            pstmt.setInt(1, mentee_seq);
+	            rs = pstmt.executeQuery();
+	            
+	            if(rs.next()) {
+	            	mentee_name = rs.getString("name");
+	            }
 			}
 
 		} catch (SQLException e) {
