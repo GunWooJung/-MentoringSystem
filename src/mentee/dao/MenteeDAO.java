@@ -344,7 +344,6 @@ public void getCnnection() {
 		
 		 try {
 			pstmt=con.prepareStatement(sql);
-			
 			pstmt.setInt(1,mentor_seq);
 			pstmt.setInt(2,mentee_seq);
 			

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import mentee.dao.MenteeDAO;
+import mentoring.dto.MenteeDTO;
 import mentoring.dto.MentorDTO;
 
 public class MenteeMainService implements MenteeService {
@@ -61,8 +62,11 @@ public class MenteeMainService implements MenteeService {
 						System.out.println(dto.getMentor_seq()+"\t"+dto.getName()+"\t"+
 								dto.getDepartment());
 					}
-					System.out.print("신청할 멘토 번호를 입력 : ");
+					System.out.print("신청할 멘토 번호를 입력(뒤로가기 : 0) : ");
 					int mentor_seq = sc.nextInt();
+					if(mentor_seq == 0) {
+						continue;
+					}
 					int result = dao.MentoringRequest(userSequence, mentor_seq);	
 					
 					if(result == 1) {
@@ -72,7 +76,28 @@ public class MenteeMainService implements MenteeService {
 						System.out.println("등록 실패 : 오류가 발생했습니다.");
 					}
 				} else if (num == 2) {
-					continue;
+					
+					List<MentorDTO> list = dao.RequestList(userSequence);
+					if(list.size() == 0) {
+						System.out.println("신청 대기 목록이 없습니다.");
+						continue;
+					}
+					for(MentorDTO dto : list) {
+						System.out.println(dto.getMentor_seq()+"\t"+dto.getName());
+					}
+					System.out.print("취소할 멘토 번호를 입력하세요.(뒤로가기 : 0)");
+					int mentee_seq = sc.nextInt();
+					if(mentee_seq == 0) {
+						continue;
+					}
+					int result = dao.RequestCancell(userSequence, mentee_seq);
+					if(result == 1) {
+						System.out.println("멘토링이 취소되었습니다.");
+					}
+					else {
+						System.out.println("오류 : 취소 실패");
+					}
+					
 				} else if (num == 3) {
 					return;
 				} else if (num ==4) {
