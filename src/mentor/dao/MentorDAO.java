@@ -248,22 +248,22 @@ public class MentorDAO {
 	public boolean MentoringAccept(int mentor_seq, int mentee_seq) {
 		getConnection();
 		boolean accept = false;
-	    String sql = "select * from waiting where mentor_seq = ? and mentee_seq = ?";
-	    String sql2 = "update mentor set status = 1 where mentor_seq = ?";
-	    String sql3 = "delete from waiting where mentor_seq = ?";
-	    String sql4 = "insert into mentoring values(?,?)";
-		
+		String sql = "select * from waiting where mentor_seq = ? and mentee_seq = ?";
+		String sql2 = "update mentor set status = 1 where mentor_seq = ?";
+		String sql3 = "delete from waiting where mentor_seq = ?";
+		String sql4 = "insert into mentoring values(?,?)";
+
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1,  mentor_seq);
 			pstmt.setInt(2,  mentee_seq);
 			rs = pstmt.executeQuery();
-			
+
 			if(rs.next()) {
 				pstmt = con.prepareStatement(sql2);
 				pstmt.setInt(1, mentor_seq);
 				int su2 = pstmt.executeUpdate();
-				
+
 				if(su2 == 1) {
 					pstmt = con.prepareStatement(sql3);
 					pstmt.setInt(1, mentor_seq);
@@ -294,30 +294,25 @@ public class MentorDAO {
 		}
 		return accept;
 	}
-	
+
 	public List<MenteeDTO> MenteeList(int mentor_seq){
 		List<MenteeDTO> menteeDTO = new ArrayList<>();
 		getConnection();
-		String sql = "select * from waiting where mentor_seq = ?";
-		String sql2 = "select * from waiting, mentee where waiting.mentee_seq = ?";
+		String sql = "select * from waiting, mentee where waiting.mentee_seq = mentee.mentee_seq and mentor_seq = ?";
 		try {
 			pstmt  = con.prepareStatement(sql);
 			pstmt.setInt(1, mentor_seq);
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				int mentee_seq = rs.getInt("mentee_seq");
-				pstmt = con.prepareStatement(sql2);
-				pstmt.setInt(1, mentee_seq);
-				rs = pstmt.executeQuery();
-				
-				while(rs.next()) {
-					MenteeDTO dto = new MenteeDTO();
-					dto.setName(rs.getString("name"));
-					
-					menteeDTO.add(dto);
-				}
+
+
+			while(rs.next()) {
+				MenteeDTO dto = new MenteeDTO();
+				dto.setMentee_seq(rs.getInt("mentee_seq"));
+				dto.setName(rs.getString("name"));
+				menteeDTO.add(dto);
+
 			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
