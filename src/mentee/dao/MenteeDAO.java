@@ -308,6 +308,7 @@ public void getCnnection() {
 		    return list;
 		}
 	
+	
 	public int MentoringRequest(int mentee_seq, int mentor_seq){
 		int check=0;
 		 getCnnection();
@@ -367,26 +368,30 @@ public void getCnnection() {
 	public  List<MentorDTO> RequestList(int mentee_seq){
 		List<MentorDTO> list = new ArrayList<>();
 		getCnnection();
-		 String sql="select * from   MENTORING where mentee_seq = ? order by mentor_seq asc";
+		 String sql="select * from waiting ,mentor where mentee_seq =? and waiting.mentor_seq=mentor.mentor_seq order by  mentor.mentor_seq asc";
 		 try {
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1,mentee_seq);
-			rs =  pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-                MentorDTO dto = new MentorDTO(); // assuming mentor_seq is of type Integer
-
+                MentorDTO dto = new MentorDTO(); 
                 dto.setMentor_seq(rs.getInt("mentor_seq"));
                 dto.setName(rs.getString("name"));
-                dto.setDepartment(rs.getString("department")); // assuming department column exists in the result
                 list.add(dto);
             }
-			
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}finally {
+	        try {
+	            if (pstmt != null) pstmt.close();
+	            if (con != null) con.close();
+	            if (rs != null) rs.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
 		return list;
 	}
 
