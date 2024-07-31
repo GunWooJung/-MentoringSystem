@@ -36,6 +36,7 @@ public class MentorMainService implements MentorService {
 					for(MenteeDTO dto : list) {
 						System.out.println(dto.getMentee_seq()+"\t"+dto.getName());
 					}
+					System.out.print("승인할 멘토 번호를 입력하세요.");
 					int mentee_seq = sc.nextInt();
 					boolean result = dao.MentoringAccept(userSequence, mentee_seq);
 					if(result == true) {

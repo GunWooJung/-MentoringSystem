@@ -308,5 +308,30 @@ public void getCnnection() {
 		    return list;
 		}
 	
-
+	public int MentoringRequest(int mentee_seq, int mentor_seq){
+		int check=0;
+		 getCnnection();
+		 String sql="insert into  MENTORING  VALUES(?,?)";
+		 
+		 try {
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1,mentor_seq);
+			pstmt.setInt(2,mentee_seq);
+			
+			check=pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+	        try {
+	            if (pstmt != null) pstmt.close();
+	            if (con != null) con.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+		return check;
+	}
 }
