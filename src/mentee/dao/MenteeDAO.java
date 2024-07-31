@@ -312,7 +312,7 @@ public void getCnnection() {
 	public int MentoringRequest(int mentee_seq, int mentor_seq){
 		int check=0;
 		 getCnnection();
-		 String sql="insert into  MENTORING  VALUES(?,?)";
+		 String sql="insert into waiting  VALUES(?,?)";
 		 
 		 try {
 			pstmt=con.prepareStatement(sql);
@@ -341,7 +341,7 @@ public void getCnnection() {
 	public int RequestCancell(int mentee_seq, int mentor_seq) {
 		int cancell =0;
 		getCnnection();
-		 String sql="Delete  MENTORING where mentor_seq=? and mentee_seq =?";
+		 String sql="Delete  waiting where mentor_seq=? and mentee_seq =?";
 		
 		 try {
 			pstmt=con.prepareStatement(sql);
@@ -364,5 +364,21 @@ public void getCnnection() {
 		return cancell;
 	}
 	
+	public  List<MentorDTO> RequestList(int mentee_seq){
+		List<MentorDTO> list = new ArrayList<>();
+		getCnnection();
+		 String sql="select * from   MENTORING where mentee_seq = ? order by mentor_seq asc";
+		 try {
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1,mentee_seq);
+			rs =  pstmt.executeQuery();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
 	
 }
