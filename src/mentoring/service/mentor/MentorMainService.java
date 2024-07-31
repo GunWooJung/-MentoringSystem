@@ -32,7 +32,7 @@ public class MentorMainService implements MentorService {
 				if (num == 1) {
 					System.out.println("멘티 번호\t이름");
 					System.out.println("------------------");
-					List<MenteeDTO> list = dao.waiting(userSequence);
+					List<MenteeDTO> list = dao.MenteeList(userSequence);
 					for(MenteeDTO dto : list) {
 						System.out.println(dto.getMentor_seq()+"\t"+dto.getName());
 					}

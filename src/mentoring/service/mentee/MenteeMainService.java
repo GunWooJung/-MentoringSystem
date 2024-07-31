@@ -52,11 +52,12 @@ public class MenteeMainService implements MenteeService {
 					}
 					System.out.println("멘토 번호\t이름\t분야");
 					System.out.println("------------------");
-					List<MentorDTO> list = dao.DepartmentSort(department);
+					List<MentorDTO> list = dao.DepartmenSort(department);
 					for(MentorDTO dto : list) {
 						System.out.println(dto.getMentor_seq()+"\t"+dto.getName()+"\t"+
 								dto.getDepartment());
 					}
+					/*
 					int mentor_seq = sc.nextInt();
 					int result = dao.waiting(userSequence, mentor_seq);	
 					
@@ -65,7 +66,7 @@ public class MenteeMainService implements MenteeService {
 					}
 					else {
 						System.out.println("등록 실패 : 오류가 발생했습니다.");
-					}
+					}*/
 				} else if (num == 2) {
 					continue;
 				} else if (num == 3) {
