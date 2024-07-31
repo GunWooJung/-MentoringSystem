@@ -1,5 +1,7 @@
 package mentoring.main;
 
+import java.util.List;
+
 import mentee.dao.MenteeDAO;
 import mentor.dao.MentorDAO;
 import mentoring.dto.MenteeDTO;
@@ -12,10 +14,12 @@ public class TestMain {
 		// TODO Auto-generated method stub
 		MenteeDAO menteeDAO = MenteeDAO.getInstance();
 		MentorDAO mentorDAO = MentorDAO.getInstance();
-	
-		MentorDTO dto =menteeDAO.Mentorinformtion(2);
 		
-		System.out.println(dto);
+		
+		List<MentorDTO> list =menteeDAO.DepartmenSort(5);
+
+		
+		System.out.println(list);
 		
 
 	}
