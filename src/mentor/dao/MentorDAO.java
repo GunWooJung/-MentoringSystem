@@ -304,11 +304,13 @@ public class MentorDAO {
 			pstmt.setInt(1, mentor_seq);
 			rs = pstmt.executeQuery();
 
+
 			while(rs.next()) {
 				MenteeDTO dto = new MenteeDTO();
 				dto.setMentee_seq(rs.getInt("mentee_seq"));
 				dto.setName(rs.getString("name"));
 				menteeDTO.add(dto);
+
 			}
 
 		} catch (SQLException e) {
