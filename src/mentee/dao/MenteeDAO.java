@@ -311,8 +311,7 @@ public void getCnnection() {
 	public int MentoringRequest(int mentee_seq, int mentor_seq){
 		int check=0;
 		 getCnnection();
-		 String sql="insert into MENTOR"
-		 		+ "ING  VALUES(?,?)";
+		 String sql="insert into waiting  VALUES(?,?)";
 		 
 		 try {
 			pstmt=con.prepareStatement(sql);
@@ -341,7 +340,7 @@ public void getCnnection() {
 	public int RequestCancell(int mentee_seq, int mentor_seq) {
 		int cancell =0;
 		getCnnection();
-		 String sql="Delete  MENTORING where mentor_seq=? and mentee_seq =?";
+		 String sql="Delete  waiting where mentor_seq=? and mentee_seq =?";
 		
 		 try {
 			pstmt=con.prepareStatement(sql);
