@@ -334,4 +334,32 @@ public void getCnnection() {
 	    }
 		return check;
 	}
+	
+	
+	
+	public int RequestCancell(int mentee_seq, int mentor_seq) {
+		int cancell =0;
+		getCnnection();
+		 String sql="Delete  MENTORING where mentor_seq=? and mentee_seq =?";
+		
+		 try {
+			pstmt=con.prepareStatement(sql);
+			
+			pstmt.setInt(1,mentor_seq);
+			pstmt.setInt(2,mentee_seq);
+			
+			cancell=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+	        try {
+	            if (pstmt != null) pstmt.close();
+	            if (con != null) con.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+		return cancell;
+	}
 }
