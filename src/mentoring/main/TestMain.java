@@ -13,10 +13,11 @@ public class TestMain {
 		MentorDAO mentorDAO = MentorDAO.getInstance();
 	
 		String  name =menteeDAO.MentoringCheck(7);
+		//System.out.println(name);
 		
-		
-		System.out.println(name);
-		
+		MenteeDTO menteeDTO = mentorDAO.MenteeInformation(1);
+        System.out.println(menteeDTO.getName());
 	}
 
 }
+
