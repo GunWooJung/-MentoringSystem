@@ -293,4 +293,46 @@ public class MentorDAO {
 		}
 		return accept;
 	}
+	
+	public ArrayList<MenteeDTO> MenteeList(int mentor_seq){
+		ArrayList<MenteeDTO> menteeDTO = new ArrayList<>();
+		List<MenteeDTO> menteeDTO = new List<>();
+		getConnection();
+		String sql = "select * from waiting where mentor_seq = ?";
+		String sql2 = "select * from waiting, mentee where waiting.mentee_seq = ?";
+		try {
+			pstmt  = con.prepareStatement(sql);
+			pstmt.setInt(1, mentor_seq);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				System.out.println("있음");
+				int mentee_seq = rs.getInt("mentee_seq");
+				pstmt = con.prepareStatement(sql2);
+				pstmt.setInt(1, mentee_seq);
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					MenteeDTO dto = new MenteeDTO();
+					dto.setName(rs.getString("name"));
+					
+					menteeDTO.add(dto);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null)
+					rs.close();
+				if(pstmt != null)
+					pstmt.close();
+				if(con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return menteeDTO;
+	}
 }
