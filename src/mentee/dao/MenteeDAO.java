@@ -311,7 +311,7 @@ public void getCnnection() {
 	public int MentoringRequest(int mentee_seq, int mentor_seq){
 		int check=0;
 		 getCnnection();
-		 String sql="insert into  MENTORING  VALUES(?,?)";
+		 String sql="insert into MENTORING  VALUES(?,?)";
 		 
 		 try {
 			pstmt=con.prepareStatement(sql);
