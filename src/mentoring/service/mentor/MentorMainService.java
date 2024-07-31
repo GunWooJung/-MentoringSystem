@@ -34,7 +34,7 @@ public class MentorMainService implements MentorService {
 					System.out.println("------------------");
 					List<MenteeDTO> list = dao.MenteeList(userSequence);
 					for(MenteeDTO dto : list) {
-						System.out.println(dto.getMentor_seq()+"\t"+dto.getName());
+						System.out.println(dto.getMentee_seq()+"\t"+dto.getName());
 					}
 					int mentee_seq = sc.nextInt();
 					boolean result = dao.MentoringAccept(userSequence, mentee_seq);
