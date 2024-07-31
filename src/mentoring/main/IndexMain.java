@@ -11,8 +11,8 @@ public class IndexMain {
 		ChooseService service = new ChooseService();
 		service.menu();
 		System.out.println("프로그램을 종료합니다.");
-
-	
+		
+		
 	}
 }
 

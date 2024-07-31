@@ -200,24 +200,38 @@ public void getCnnection() {
 		return name;
 	}
 	
-	public MentorDTO Mentorinformtion(int mentor_seq) {
-		
+	public MentorDTO Mentorinformtion(int mentee_seq) {
+		//대기목록->멘토 스퀸스 뽑기->멘토 테이블 뽑기
 		 MentorDTO dto =null;
 		 getCnnection();
-		 
-		 String sql="select * from mentor where mentor_seq = ?";
+		 //멘토 스퀸시 뽑기
+		 String sql="select MENTOR_SEQ from MENTORING where  MENTEE_SEQ =?";
 		 try {
-			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1,mentor_seq);
-			rs =  pstmt.executeQuery();
-			
-			if(rs.next()) {
-				dto=new  MentorDTO();
-				dto.setName(rs.getString("name"));
-				dto.setDepartment("department");
-				dto.setEmail(rs.getString("email"));
-				dto.setPhone(rs.getString("phone"));
-			}
+			 pstmt=con.prepareStatement(sql);
+				
+				pstmt.setInt(1, mentee_seq);
+				
+				rs =  pstmt.executeQuery();
+				
+				
+				if(rs.next()) {
+					int mentor_seq=rs.getInt("mentor_seq");
+					//뽑은 스퀸시로 멘토 정보 뽑기
+					String sql1="select * from mentor where mentor_seq = ?";
+					pstmt=con.prepareStatement(sql1);
+					pstmt.setInt(1,mentor_seq);
+					rs =  pstmt.executeQuery();
+					
+					System.out.println( mentor_seq);
+				
+					if(rs.next()) {
+						dto=new  MentorDTO();
+						dto.setName(rs.getString("name"));
+						dto.setDepartment("department");
+						dto.setEmail(rs.getString("email"));
+						dto.setPhone(rs.getString("phone"));
+					}
+				}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -225,6 +239,7 @@ public void getCnnection() {
 		return dto;
 		
 	}
+	
 	
 	
 
