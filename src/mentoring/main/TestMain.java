@@ -16,7 +16,7 @@ public class TestMain {
 		MentorDAO mentorDAO = MentorDAO.getInstance();
 		
 		
-	int a =menteeDAO.MentoringRequest(4,9);
+	int a =menteeDAO.RequestCancell(4,9);
 
 		
 		System.out.println(a);
