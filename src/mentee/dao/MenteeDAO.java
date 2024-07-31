@@ -221,8 +221,6 @@ public void getCnnection() {
 					pstmt.setInt(1,mentor_seq);
 					rs =  pstmt.executeQuery();
 					
-					System.out.println( mentor_seq);
-				
 					if(rs.next()) {
 						dto=new  MentorDTO();
 						dto.setName(rs.getString("name"));

@@ -1,5 +1,6 @@
 package mentoring.service.mentor;
 
+import java.util.List;
 import java.util.Scanner;
 
 import mentor.dao.MentorDAO;
@@ -29,13 +30,19 @@ public class MentorMainService implements MentorService {
 				System.out.println("\n\n");
 
 				if (num == 1) {
-					
-					boolean result = dao.MentoringAccept(userSequence, 3);
+					System.out.println("멘티 번호\t이름");
+					System.out.println("------------------");
+					List<MenteeDTO> list = dao.waiting(userSequence);
+					for(MenteeDTO dto : list) {
+						System.out.println(dto.getMentor_seq()+"\t"+dto.getName());
+					}
+					int mentee_seq = sc.nextInt();
+					boolean result = dao.MentoringAccept(userSequence, mentee_seq);
 					if(result == true) {
 						System.out.println("멘토링이 승인되었습니다.");
 					}
 					else {
-						System.out.println("오류 : 삭제 실패");
+						System.out.println("오류 : 승인 실패");
 					}
 	
 				}else if (num == 2) {
@@ -62,6 +69,7 @@ public class MentorMainService implements MentorService {
 				if (num == 1) {
 					MenteeDTO dto = dao.MenteeInformation(userSequence);
 					System.out.println("이름\t전화번호\t이메일");
+					System.out.println("------------------");
 					System.out.println(dto.getName()+"\t"
 							+dto.getPhone()+"\t"+dto.getEmail());
 				} else if (num == 2) {
