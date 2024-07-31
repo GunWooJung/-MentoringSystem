@@ -13,10 +13,14 @@ public class TestMain {
 		MenteeDAO menteeDAO = MenteeDAO.getInstance();
 		MentorDAO mentorDAO = MentorDAO.getInstance();
 	
+
 		MentorDTO dto =menteeDAO.Mentorinformtion(7);
+
 		
 		System.out.println(dto);
 		
+
 	}
 
 }
+

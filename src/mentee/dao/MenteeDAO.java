@@ -174,7 +174,7 @@ public void getCnnection() {
 			
 			if(rs.next()) {
 				int mentor_seq=rs.getInt("mentor_seq");
-				
+          
 				String sql1="select * from mentor where mentor_seq = ?";
 				pstmt=con.prepareStatement(sql1);
 				pstmt.setInt(1,mentor_seq);
@@ -196,7 +196,6 @@ public void getCnnection() {
 				e.printStackTrace();
 			}
 		}
-		//System.out.println(name);
 		return name;
 	}
 	
@@ -232,6 +231,7 @@ public void getCnnection() {
 						dto.setPhone(rs.getString("phone"));
 					}
 				}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
