@@ -16,10 +16,10 @@ public class TestMain {
 		MentorDAO mentorDAO = MentorDAO.getInstance();
 		
 		
-		List<MentorDTO> list =menteeDAO.DepartmenSort(5);
+	int a =menteeDAO.MentoringRequest(4,9);
 
 		
-		System.out.println(list);
+		System.out.println(a);
 		
 
 	}
