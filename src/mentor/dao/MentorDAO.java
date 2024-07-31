@@ -295,9 +295,8 @@ public class MentorDAO {
 		return accept;
 	}
 	
-	public ArrayList<MenteeDTO> MenteeList(int mentor_seq){
-		ArrayList<MenteeDTO> menteeDTO = new ArrayList<>();
-		List<MenteeDTO> menteeDTO = new List<>();
+	public List<MenteeDTO> MenteeList(int mentor_seq){
+		List<MenteeDTO> menteeDTO = new ArrayList<>();
 		getConnection();
 		String sql = "select * from waiting where mentor_seq = ?";
 		String sql2 = "select * from waiting, mentee where waiting.mentee_seq = ?";
@@ -307,7 +306,6 @@ public class MentorDAO {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				System.out.println("있음");
 				int mentee_seq = rs.getInt("mentee_seq");
 				pstmt = con.prepareStatement(sql2);
 				pstmt.setInt(1, mentee_seq);

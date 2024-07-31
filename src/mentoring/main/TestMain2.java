@@ -13,10 +13,6 @@ public class TestMain2 {
 		//boolean end = mentorDAO.MentoringEnd(1);
 		
 		//boolean accept = mentorDAO.MentoringAccept(1, 1);
-		
-		ArrayList<MenteeDTO> menteeDTO = mentorDAO.MenteeList(1);
-		for(MenteeDTO dto : menteeDTO) {
-			System.out.println(dto.getName());
-		}
+
 	}
 }
