@@ -24,6 +24,7 @@ public class MenteeMainService implements MenteeService {
 				System.out.println("1. 멘토링 신청 ");
 				System.out.println("2. 신청 대기 중인 목록");
 				System.out.println("3. 이전");
+				System.out.println("4. 종료");
 				System.out.println("=================");
 				System.out.print("번호 :  ");
 				int num = sc.nextInt();
@@ -63,14 +64,19 @@ public class MenteeMainService implements MenteeService {
 					continue;
 				} else if (num == 3) {
 					return;
-				} else {
-					System.out.println("1 ~ 3만 선택하세요.");
+				} else if (num ==4) {
+					System.out.println("프로그램을 종료합니다.");
+					System.exit(0);
+				}
+				else {
+					System.out.println("1 ~ 4만 선택하세요.");
 				}
 			} else {
 				System.out.println("========메인화면[멘티]=======");
 				System.out.println("(현재 연결된 멘토) : " + mentor_name);
 				System.out.println("1. 멘토 상세 정보 보기 ");
 				System.out.println("2. 이전");
+				System.out.println("3. 종료");
 				System.out.println("=================");
 				System.out.print("번호 :  ");
 				int num = sc.nextInt();
@@ -83,8 +89,12 @@ public class MenteeMainService implements MenteeService {
 							+"\t"+dto.getPhone()+"\t"+dto.getEmail());
 				} else if (num == 2) {
 					return;
-				}else {
-					System.out.println("1 ~ 2만 선택하세요.");
+				} else if (num == 3) {
+					System.out.println("프로그램을 종료합니다.");
+					System.exit(0);
+				}
+				else {
+					System.out.println("1 ~ 3만 선택하세요.");
 				}
 			}
 		}

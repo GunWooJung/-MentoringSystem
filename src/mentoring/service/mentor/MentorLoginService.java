@@ -19,6 +19,7 @@ public class MentorLoginService implements MentorService {
 			System.out.println("1. 로그인");
 			System.out.println("2. 회원 가입");
 			System.out.println("3. 이전");
+			System.out.println("4. 종료");
 			System.out.println("=================");
 			System.out.print("번호 :  ");
 			int num = sc.nextInt();
@@ -101,8 +102,12 @@ public class MentorLoginService implements MentorService {
 				} // while
 			} else if (num == 3) {
 				return;
-			} else {
-				System.out.println("1 ~ 3만 선택하세요.");
+			} else if (num ==4) {
+				System.out.println("프로그램을 종료합니다.");
+				System.exit(0);
+			}
+			else {
+				System.out.println("1 ~ 4만 선택하세요.");
 			}
 
 		} // while 끝

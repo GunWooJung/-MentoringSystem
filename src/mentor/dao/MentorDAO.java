@@ -172,7 +172,7 @@ public class MentorDAO {
 	public MenteeDTO MenteeInformation(int mentor_seq){
 		MenteeDTO menteeDTO = null;	
 		getConnection();
-		String sql = "select * from waiting where mentor_seq = ?";
+		String sql = "select * from mentoring where mentor_seq = ?";
 		String sql2 = "select * from mentee where mentee_seq = ?";
 
 		try {
