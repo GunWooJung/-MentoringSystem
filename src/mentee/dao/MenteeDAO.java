@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import mentoring.dto.MenteeDTO;
 import mentoring.dto.MentorDTO;
@@ -221,7 +223,6 @@ public void getCnnection() {
 					pstmt.setInt(1,mentor_seq);
 					rs =  pstmt.executeQuery();
 					
-					System.out.println( mentor_seq);
 				
 					if(rs.next()) {
 						dto=new  MentorDTO();
@@ -234,13 +235,79 @@ public void getCnnection() {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(con!=null)con.close();
+				if(rs!=null)rs.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		 
 		return dto;
 		
 	}
 	
-	
+	public List<MentorDTO> DepartmenSort(int department){
+		List<MentorDTO> list = new ArrayList<>();
+		String s="";
+		String sql=null;
+		 getCnnection();
+		
+		 
+		 try {
+		        // 데이터베이스 연결 설정
+
+		        if (department < 5) {
+		            if (department == 1) s = "프론트엔드";
+		            else if (department == 2) s = "백엔드";
+		            else if (department == 3) s = "네트워크";
+		            else if (department == 4) s = "4";
+		            
+		            // 문자열에서 공백 제거
+		            s = s.trim();
+		            sql = "select * from MENTOR where department = ? order by mentor_seq asc";
+		        } else if (department == 5) {
+		            sql = "select * from MENTOR order by mentor_seq asc";
+		        }
+
+		        // PreparedStatement 또는 Statement 생성
+		        if (sql != null) {
+		            if (department < 5) {
+		                pstmt = con.prepareStatement(sql);
+		                pstmt.setString(1, s);
+		            } else {
+		                pstmt = con.prepareStatement(sql);
+		            }
+
+		            // 쿼리 실행
+		            rs = pstmt.executeQuery();
+
+		            // 결과 처리
+		            while (rs.next()) {
+		                MentorDTO dto = new MentorDTO(); // assuming mentor_seq is of type Integer
+
+		                dto.setMentor_seq(rs.getInt("mentor_seq"));
+		                dto.setName(rs.getString("name"));
+		                dto.setDepartment(rs.getString("department")); // assuming department column exists in the result
+		                list.add(dto);
+		            }
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    } finally {
+		        try {
+		            if (pstmt != null) pstmt.close();
+		            if (con != null) con.close();
+		            if (rs != null) rs.close();
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+		    }
+		    return list;
+		}
 	
 
 }
