@@ -29,14 +29,15 @@ public class MentorMainService implements MentorService {
 				System.out.println("\n\n");
 
 				if (num == 1) {
-					boolean result = dao.MentoringAccept(userSequence, mentee_seq);
+					
+					boolean result = dao.MentoringAccept(userSequence, 3);
 					if(result == true) {
 						System.out.println("멘토링이 승인되었습니다.");
 					}
 					else {
 						System.out.println("오류 : 삭제 실패");
 					}
-
+	
 				}else if (num == 2) {
 					return;
 				} else if (num == 3) {
