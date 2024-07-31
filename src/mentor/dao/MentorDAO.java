@@ -144,13 +144,13 @@ public class MentorDAO {
 
 			if(rs.next()) {
 				int mentee_seq = rs.getInt("mentee_seq");
-	            pstmt = con.prepareStatement(sql2);
-	            pstmt.setInt(1, mentee_seq);
-	            rs = pstmt.executeQuery();
-	            
-	            if(rs.next()) {
-	            	mentee_name = rs.getString("name");
-	            }
+				pstmt = con.prepareStatement(sql2);
+				pstmt.setInt(1, mentee_seq);
+				rs = pstmt.executeQuery();
+
+				if(rs.next()) {
+					mentee_name = rs.getString("name");
+				}
 			}
 
 		} catch (SQLException e) {
@@ -168,11 +168,11 @@ public class MentorDAO {
 		}	
 		return mentee_name;
 	}
-	
+
 	public MenteeDTO MenteeInformation(int mentor_seq){
 		MenteeDTO menteeDTO = null;	
 		getConnection();
-		String sql = "select * from waiting where mentor_seq = ?";
+		String sql = "select * from mentoring where mentor_seq = ?";
 		String sql2 = "select * from mentee where mentee_seq = ?";
 
 		try {
@@ -191,7 +191,7 @@ public class MentorDAO {
 					menteeDTO.setEmail(rs.getString("email"));
 					menteeDTO.setPhone(rs.getString("phone"));
 				}
-				
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -208,5 +208,89 @@ public class MentorDAO {
 			}
 		}
 		return menteeDTO;
+	}
+
+	public boolean MentoringEnd(int mentor_seq) {
+		int su = 0;
+		int su2 = 0;
+		boolean end = false;
+		getConnection();
+		String sql = "delete mentoring where mentor_seq = ? ";
+		String sql2 = "update mentor set status = 0 where mentor_seq = ?"; 
+		try {
+			pstmt  = con.prepareStatement(sql);
+			pstmt.setInt(1, mentor_seq);
+			su = pstmt.executeUpdate();
+			if(su == 1) {
+				pstmt = con.prepareStatement(sql2);
+				pstmt.setInt(1, mentor_seq);
+				su2 = pstmt.executeUpdate();
+				if(su2 == 1) {
+					end = true;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null)
+					pstmt.close();
+				if(con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return end;
+	}
+
+	public boolean MentoringAccept(int mentor_seq, int mentee_seq) {
+		getConnection();
+		boolean accept = false;
+	    String sql = "select * from waiting where mentor_seq = ? and mentee_seq = ?";
+	    String sql2 = "update mentor set status = 1 where mentor_seq = ?";
+	    String sql3 = "delete from waiting where mentor_seq = ?";
+	    String sql4 = "insert into mentoring values(?,?)";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1,  mentor_seq);
+			pstmt.setInt(2,  mentee_seq);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				pstmt = con.prepareStatement(sql2);
+				pstmt.setInt(1, mentor_seq);
+				int su2 = pstmt.executeUpdate();
+				
+				if(su2 == 1) {
+					pstmt = con.prepareStatement(sql3);
+					pstmt.setInt(1, mentor_seq);
+					int su3 = pstmt.executeUpdate();
+
+					if(su3 != 0) {
+						pstmt = con.prepareStatement(sql4);
+						pstmt.setInt(1, mentor_seq);
+						pstmt.setInt(2, mentee_seq);
+						int su4 = pstmt.executeUpdate();
+
+						if(su4 == 1) {
+							accept = true;
+						}
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (con != null) con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return accept;
 	}
 }
