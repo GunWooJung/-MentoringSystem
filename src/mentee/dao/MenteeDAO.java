@@ -373,6 +373,15 @@ public void getCnnection() {
 			pstmt.setInt(1,mentee_seq);
 			rs =  pstmt.executeQuery();
 			
+			while (rs.next()) {
+                MentorDTO dto = new MentorDTO(); // assuming mentor_seq is of type Integer
+
+                dto.setMentor_seq(rs.getInt("mentor_seq"));
+                dto.setName(rs.getString("name"));
+                dto.setDepartment(rs.getString("department")); // assuming department column exists in the result
+                list.add(dto);
+            }
+			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
