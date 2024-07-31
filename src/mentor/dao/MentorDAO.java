@@ -313,6 +313,7 @@ public class MentorDAO {
 				
 				while(rs.next()) {
 					MenteeDTO dto = new MenteeDTO();
+					dto.setMentee_seq(rs.getInt("mentee_seq"));
 					dto.setName(rs.getString("name"));
 					
 					menteeDTO.add(dto);
