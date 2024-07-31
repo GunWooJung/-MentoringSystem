@@ -3,6 +3,8 @@ package mentoring.service.mentor;
 import java.util.Scanner;
 
 import mentor.dao.MentorDAO;
+import mentoring.dto.MenteeDTO;
+import mentoring.dto.MentorDTO;
 
 public class MentorMainService implements MentorService {
 
@@ -44,7 +46,10 @@ public class MentorMainService implements MentorService {
 				System.out.println("\n\n");
 
 				if (num == 1) {
-					continue;
+					MenteeDTO dto = dao.MenteeInformation(userSequence);
+					System.out.println("이름\t전화번호\t이메일");
+					System.out.println(dto.getName()+"\t"
+							+dto.getPhone()+"\t"+dto.getEmail());
 				} else if (num == 2) {
 					/*
 					int result = dao.get(userSequence);
