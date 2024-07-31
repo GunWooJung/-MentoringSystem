@@ -226,7 +226,7 @@ public void getCnnection() {
 					if(rs.next()) {
 						dto=new  MentorDTO();
 						dto.setName(rs.getString("name"));
-						dto.setDepartment("department");
+						dto.setDepartment(rs.getString("department"));
 						dto.setEmail(rs.getString("email"));
 						dto.setPhone(rs.getString("phone"));
 					}
