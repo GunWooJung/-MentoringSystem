@@ -33,6 +33,10 @@ public class MentorMainService implements MentorService {
 					System.out.println("멘티 번호\t이름");
 					System.out.println("------------------");
 					List<MenteeDTO> list = dao.MenteeList(userSequence);
+					if(list.size() == 0) {
+						System.out.println("신청 대기 목록이 없습니다.");
+						continue;
+					}
 					for(MenteeDTO dto : list) {
 						System.out.println(dto.getMentee_seq()+"\t"+dto.getName());
 					}

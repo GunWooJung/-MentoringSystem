@@ -263,7 +263,7 @@ public void getCnnection() {
 		            if (department == 1) s = "프론트엔드";
 		            else if (department == 2) s = "백엔드";
 		            else if (department == 3) s = "네트워크";
-		            else if (department == 4) s = "4";
+		            else if (department == 4) s = "클라우드";
 		            
 		            // 문자열에서 공백 제거
 		            s = s.trim();
@@ -362,4 +362,6 @@ public void getCnnection() {
 	    }
 		return cancell;
 	}
+	
+	
 }
