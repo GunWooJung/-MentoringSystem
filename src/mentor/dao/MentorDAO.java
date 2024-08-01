@@ -173,8 +173,10 @@ public class MentorDAO {
 	public MenteeDTO MenteeInformation(int mentor_seq){
 		MenteeDTO menteeDTO = null;	
 		getConnection();
-		String sql = "select * from mentoring where mentor_seq = ?";
-		String sql2 = "select * from mentee where mentee_seq = ?";
+		String sql = "select * "
+				+ "from mentoring "
+				+ "join mentee using(mentee_seq) "
+				+ "where mentoring.mentor_seq = ?";
 
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -182,17 +184,10 @@ public class MentorDAO {
 			rs = pstmt.executeQuery();
 
 			if(rs.next()) {		
-				int mentee_seq = rs.getInt("mentee_seq");
-				pstmt = con.prepareStatement(sql2);
-				pstmt.setInt(1, mentee_seq);
-				rs = pstmt.executeQuery();
-				if(rs.next()) {
-					menteeDTO = new MenteeDTO();
-					menteeDTO.setName(rs.getString("name"));
-					menteeDTO.setEmail(rs.getString("email"));
-					menteeDTO.setPhone(rs.getString("phone"));
-				}
-
+				menteeDTO = new MenteeDTO();
+				menteeDTO.setName(rs.getString("name"));
+				menteeDTO.setEmail(rs.getString("email"));
+				menteeDTO.setPhone(rs.getString("phone"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -298,7 +293,8 @@ public class MentorDAO {
 	public List<MenteeDTO> MenteeList(int mentor_seq){
 		List<MenteeDTO> menteeDTO = new ArrayList<>();
 		getConnection();
-		String sql = "select * from waiting, mentee where waiting.mentee_seq = mentee.mentee_seq and mentor_seq = ?";
+		String sql = "select * from waiting, mentee where waiting.mentee_seq = mentee.mentee_seq "
+					+ "and mentor_seq = ?";
 		try {
 			pstmt  = con.prepareStatement(sql);
 			pstmt.setInt(1, mentor_seq);

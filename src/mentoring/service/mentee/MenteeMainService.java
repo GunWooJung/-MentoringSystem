@@ -72,6 +72,9 @@ public class MenteeMainService implements MenteeService {
 					if(result == 1) {
 						System.out.println("멘토링이 신청(대기상태)되었습니다.");
 					}
+					else if(result == -1) {
+						System.out.println("해당 멘토에게 이미 신청되었습니다.");
+					}
 					else {
 						System.out.println("등록 실패 : 오류가 발생했습니다.");
 					}
@@ -81,7 +84,9 @@ public class MenteeMainService implements MenteeService {
 					if(list.size() == 0) {
 						System.out.println("신청 대기 목록이 없습니다.");
 						continue;
+						
 					}
+					
 					for(MentorDTO dto : list) {
 						System.out.println(dto.getMentor_seq()+"\t"+dto.getName());
 					}

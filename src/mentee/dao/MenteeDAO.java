@@ -270,7 +270,7 @@ public class MenteeDAO {
 				sql = "select * from MENTOR where department = ?  and STATUS=0  order by mentor_seq asc";
 			} //1-4 검색 문장
 			else if (department == 5) {
-				sql = "select * from MENTOR  and STATUS=0  order by mentor_seq asc";
+				sql = "select * from MENTOR  where  STATUS=0  order by mentor_seq asc";
 			}//5 검색 문장
 
 			// PreparedStatement 또는 Statement 생성
