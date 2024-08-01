@@ -272,9 +272,9 @@ public class MenteeDAO {
 
 				// 문자열에서 공백 제거
 				s = s.trim();
-				sql = "select * from MENTOR where department = ? order by mentor_seq asc";
+				sql = "select * from MENTOR where status = 0 and department = ? order by mentor_seq asc";
 			} else if (department == 5) {
-				sql = "select * from MENTOR order by mentor_seq asc";
+				sql = "select * from MENTOR status = 0 order by mentor_seq asc";
 			}
 
 			// PreparedStatement 또는 Statement 생성
