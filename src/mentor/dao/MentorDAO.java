@@ -37,7 +37,7 @@ public class MentorDAO {
 	}
 
 	public int Login(String id, String pwd) {
-		int mento_seq = 0;
+		int mentor_seq = 0;
 		getConnection();
 		String sql = "select * from mentor where id = ? and pwd = ?";
 
@@ -48,9 +48,9 @@ public class MentorDAO {
 			rs = pstmt.executeQuery();
 
 			if(rs.next()) {
-				mento_seq = rs.getInt("mentor_seq");
+				mentor_seq = rs.getInt("mentor_seq");
 			}else
-				mento_seq = -1;
+				mentor_seq = -1;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -65,7 +65,7 @@ public class MentorDAO {
 				e.printStackTrace();
 			}
 		}	
-		return mento_seq;
+		return mentor_seq;
 	}
 
 	public boolean IdCheck(String id) {
@@ -135,8 +135,9 @@ public class MentorDAO {
 	public String MentoringCheck(int mentor_seq) {
 		String mentee_name = null;
 		getConnection();
-		String sql = "select mentee_seq from mentoring where mentor_seq = ?";
-		String sql2 = "select name from mentee where mentee_seq = ?";
+		String sql = "select name from mentoring "
+				+ "join mentee using(mentee_seq) "
+				+ "where mentor_seq = ?";
 
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -144,14 +145,7 @@ public class MentorDAO {
 			rs = pstmt.executeQuery();
 
 			if(rs.next()) {
-				int mentee_seq = rs.getInt("mentee_seq");
-				pstmt = con.prepareStatement(sql2);
-				pstmt.setInt(1, mentee_seq);
-				rs = pstmt.executeQuery();
-
-				if(rs.next()) {
-					mentee_name = rs.getString("name");
-				}
+				mentee_name = rs.getString("name");
 			}
 
 		} catch (SQLException e) {
@@ -294,7 +288,7 @@ public class MentorDAO {
 		List<MenteeDTO> menteeDTO = new ArrayList<>();
 		getConnection();
 		String sql = "select * from waiting, mentee where waiting.mentee_seq = mentee.mentee_seq "
-					+ "and mentor_seq = ?";
+				+ "and mentor_seq = ?";
 		try {
 			pstmt  = con.prepareStatement(sql);
 			pstmt.setInt(1, mentor_seq);

@@ -10,7 +10,12 @@ public class IndexMain {
 
 		ChooseService service = new ChooseService();
 		service.menu();
-		System.out.println("프로그램을 종료합니다.");
+		System.out.println("  _______ _    _ ______   ______ _   _ _____  \r\n"
+				+ " |__   __| |  | |  ____| |  ____| \\ | |  __ \\ \r\n"
+				+ "    | |  | |__| | |__    | |__  |  \\| | |  | |\r\n"
+				+ "    | |  |  __  |  __|   |  __| | . ` | |  | |\r\n"
+				+ "    | |  | |  | | |____  | |____| |\\  | |__| |\r\n"
+				+ "    |_|  |_|  |_|______| |______|_| \\_|_____/");
 		
 		
 
