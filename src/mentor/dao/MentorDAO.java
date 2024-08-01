@@ -293,8 +293,7 @@ public class MentorDAO {
 	public List<MenteeDTO> MenteeList(int mentor_seq){
 		List<MenteeDTO> menteeDTO = new ArrayList<>();
 		getConnection();
-		String sql = "select * from waiting, mentee"
-					+ "where waiting.mentee_seq = mentee.mentee_seq"
+		String sql = "select * from waiting, mentee where waiting.mentee_seq = mentee.mentee_seq "
 					+ "and mentor_seq = ?";
 		try {
 			pstmt  = con.prepareStatement(sql);
