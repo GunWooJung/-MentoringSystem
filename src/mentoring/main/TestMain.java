@@ -16,7 +16,7 @@ public class TestMain {
 		MentorDAO mentorDAO = MentorDAO.getInstance();
 		
 		
-		List<MentorDTO> list =menteeDAO.RequestList(8);
+		MentorDTO list =menteeDAO.Mentorinformtion(10);
 
 		
 		System.out.println(list);
