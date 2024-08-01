@@ -202,11 +202,13 @@ public class MenteeDAO {
 	}
 
 	public MentorDTO Mentorinformtion(int mentee_seq) {
-		// 대기목록->멘토 스퀸스 뽑기->멘토 테이블 뽑기
+		//먼토 정보 뽑기 받은 값 
+		//받은 닶 내 번호
+		//대기중 테이블 검색->멘토 번호->멘토/대기중 멘토스퀸시 같으면 뱉기
 		MentorDTO dto = null;
 		getCnnection();
 		// 멘토 스퀸시 뽑기
-		String sql = "select MENTOR_SEQ from MENTORING where  MENTEE_SEQ =?";
+		String sql = "select * from MENTORING, mentor where MENTEE_SEQ=? and MENTORING.mentor_seq =mentor.mentor_seq";
 		try {
 			pstmt = con.prepareStatement(sql);
 
@@ -214,21 +216,14 @@ public class MenteeDAO {
 
 			rs = pstmt.executeQuery();
 
+			
 			if (rs.next()) {
-				int mentor_seq = rs.getInt("mentor_seq");
-				// 뽑은 스퀸시로 멘토 정보 뽑기
-				String sql1 = "select * from mentor where mentor_seq = ?";
-				pstmt = con.prepareStatement(sql1);
-				pstmt.setInt(1, mentor_seq);
-				rs = pstmt.executeQuery();
-
-				if (rs.next()) {
-					dto = new MentorDTO();
-					dto.setName(rs.getString("name"));
-					dto.setDepartment(rs.getString("department"));
-					dto.setEmail(rs.getString("email"));
-					dto.setPhone(rs.getString("phone"));
-				}
+				dto = new MentorDTO();
+				dto.setName(rs.getString("name"));
+				dto.setDepartment(rs.getString("department"));
+				dto.setEmail(rs.getString("email"));
+				dto.setPhone(rs.getString("phone"));
+				
 			}
 
 		} catch (SQLException e) {
@@ -256,7 +251,7 @@ public class MenteeDAO {
 		String s = "";
 		String sql = null;
 		getCnnection();
-
+		//분야별 멘토 데이커 테이블 출력 ->조회할때 상태가 1이면 거르기
 		try {
 			// 데이터베이스 연결 설정
 
@@ -269,13 +264,14 @@ public class MenteeDAO {
 					s = "네트워크";
 				else if (department == 4)
 					s = "클라우드";
-
+				
 				// 문자열에서 공백 제거
 				s = s.trim();
-				sql = "select * from MENTOR where department = ? order by mentor_seq asc";
-			} else if (department == 5) {
-				sql = "select * from MENTOR order by mentor_seq asc";
-			}
+				sql = "select * from MENTOR where department = ?  and STATUS=0  order by mentor_seq asc";
+			} //1-4 검색 문장
+			else if (department == 5) {
+				sql = "select * from MENTOR  and STATUS=0  order by mentor_seq asc";
+			}//5 검색 문장
 
 			// PreparedStatement 또는 Statement 생성
 			if (sql != null) {
@@ -317,6 +313,9 @@ public class MenteeDAO {
 	}
 
 	public int MentoringRequest(int mentee_seq, int mentor_seq) {
+		
+		//멘토에게 신청 꾸욱->대기목록에 추가
+		//->한번확인 거치기 신청-> 조회->없어? 신청! 있어?불가
 		int check = 0;
 		getCnnection();
 		String sql1 = "select * from waiting where mentor_seq = ? and mentee_seq = ? ";
@@ -335,6 +334,7 @@ public class MenteeDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		//내가 그사람에게 조회 신청을 하였는가?
 		String sql = "insert into waiting  VALUES(?,?)";
 
 		try {
