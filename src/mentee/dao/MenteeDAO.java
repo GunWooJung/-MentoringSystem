@@ -455,7 +455,7 @@ public class MenteeDAO {
 	
 
 	public List<ReviewDTO> reviewList(){
-		List<ReviewDTO> reviewList = new ArrayList<>();;
+		List<ReviewDTO> reviewList = new ArrayList<>();
 		getCnnection();
 		String sql = "select * from review";
 		
@@ -466,6 +466,7 @@ public class MenteeDAO {
 			while(rs.next()) {
 				ReviewDTO dto = new ReviewDTO();
 				dto.setMentor_seq(rs.getInt("mentor_seq"));
+				dto.setName(rs.getString("name"));
 				dto.setReview(rs.getString("review"));
 				reviewList.add(dto);
 				
