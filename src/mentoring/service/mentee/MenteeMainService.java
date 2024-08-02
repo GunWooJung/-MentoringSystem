@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import mentee.dao.MenteeDAO;
-import mentoring.dto.MenteeDTO;
 import mentoring.dto.MentorDTO;
+import mentoring.dto.ReviewDTO;
 
 public class MenteeMainService implements MenteeService {
 
@@ -25,8 +25,9 @@ public class MenteeMainService implements MenteeService {
 				System.out.println();
 				System.out.println("                 1. 멘토링 신청 ");
 				System.out.println("                 2. 신청 대기 중인 목록");
-				System.out.println("                 3. 이전");
-				System.out.println("                 4. 종료");
+				System.out.println("                 3. 리뷰 보기");
+				System.out.println("                 4. 이전");
+				System.out.println("                 5. 종료");
 				System.out.print("               ◈ 번호 :  ");
 				int num = sc.nextInt();
 				System.out.println("      ╚═════════════════════════════════════╝");
@@ -135,8 +136,17 @@ public class MenteeMainService implements MenteeService {
 					}
 					
 				} else if (num == 3) {
+					//리뷰 목록
+					List<ReviewDTO> list = dao.reviewList();
+					for(ReviewDTO dto : list) {
+						System.out.println("멘토 번호 : "+dto.getMentor_seq()+
+											"멘토이름 : "+dto.getName()+
+											"리뷰 내용 : "+dto.getReview());
+						System.out.println();						
+					}
+				} else if (num == 4) {
 					return;
-				} else if (num ==4) {
+				} else if (num == 5) {
 					System.out.println("  _______ _    _ ______   ______ _   _ _____  \r\n"
 							+ " |__   __| |  | |  ____| |  ____| \\ | |  __ \\ \r\n"
 							+ "    | |  | |__| | |__    | |__  |  \\| | |  | |\r\n"
@@ -146,14 +156,15 @@ public class MenteeMainService implements MenteeService {
 					System.exit(0);
 				}
 				else {
-					System.out.println("1 ~ 4만 선택하세요.");
+					System.out.println("1 ~ 5만 선택하세요.");
 				}
 			} else {
 				System.out.println("      ╔════════════ 메인화면[멘티] ════════════╗");
 				System.out.println("              ◈ 현재 연결된 멘토 : " + mentor_name);
 				System.out.println("              1. 멘토 상세 정보 보기 ");
-				System.out.println("              2. 이전");
-				System.out.println("              3. 종료");
+				System.out.println("              2. 리뷰 보기");
+				System.out.println("              3. 이전");
+				System.out.println("              4. 종료");
 				System.out.print("               ◈ 번호 :  ");
 				int num = sc.nextInt();
 				System.out.println("      ╚═════════════════════════════════════╝");
@@ -167,9 +178,22 @@ public class MenteeMainService implements MenteeService {
 							+"\t"+dto.getPhone()+"\t"+dto.getEmail());
 					System.out.println("-----------------------------------------------");	
 					System.out.println("\n\n");
-				} else if (num == 2) {
+				}else if (num == 2) {
+					List<ReviewDTO> list = dao.reviewList();
+					if(list == null) {
+						System.out.println("등록된 리뷰가 없습니다.");
+					}
+					else {
+						for(ReviewDTO dto : list) {
+							System.out.println("멘토 번호 : "+dto.getMentor_seq()+
+												"멘토이름 : "+dto.getName()+
+												"리뷰 내용 : "+dto.getReview());
+							System.out.println();						
+						}
+					}
+				}else if (num == 3) {
 					return;
-				} else if (num == 3) {
+				} else if (num == 4) {
 					System.out.println("  _______ _    _ ______   ______ _   _ _____  \r\n"
 							+ " |__   __| |  | |  ____| |  ____| \\ | |  __ \\ \r\n"
 							+ "    | |  | |__| | |__    | |__  |  \\| | |  | |\r\n"
@@ -179,7 +203,7 @@ public class MenteeMainService implements MenteeService {
 					System.exit(0);
 				}
 				else {
-					System.out.println("1 ~ 3만 선택하세요.");
+					System.out.println("1 ~ 4만 선택하세요.");
 					System.out.println("\n\n");
 					System.out.println("-----------------------------------------------");		
 				}

@@ -24,8 +24,7 @@ public class MentorMainService implements MentorService {
 				System.out.println();
 				System.out.println("                 1. 멘티 요청 대기 목록");
 				System.out.println("                 2. 이전");
-				System.out.println("                 3. 리뷰 보기");
-				System.out.println("                 4. 종료");
+				System.out.println("                 3. 종료");
 				System.out.print("               ◈ 번호 :  ");
 				int num = sc.nextInt();
 				System.out.println("      ╚═════════════════════════════════════╝");
@@ -66,11 +65,7 @@ public class MentorMainService implements MentorService {
 	
 				}else if (num == 2) {
 					return;
-				} 
-				else if (num == 3) {
-					//리뷰 목록
-					continue; 
-				} else if (num == 4) {
+				} else if (num == 3) {
 					System.out.println("  _______ _    _ ______   ______ _   _ _____  \r\n"
 							+ " |__   __| |  | |  ____| |  ____| \\ | |  __ \\ \r\n"
 							+ "    | |  | |__| | |__    | |__  |  \\| | |  | |\r\n"
@@ -80,7 +75,7 @@ public class MentorMainService implements MentorService {
 					System.exit(0);
 				}
 				else {
-					System.out.println("1 ~ 4만 선택하세요.");
+					System.out.println("1 ~ 3만 선택하세요.");
 				}
 			}else {
 				System.out.println("      ╔════════════ 메인화면[멘토] ════════════╗");
