@@ -469,7 +469,6 @@ public class MenteeDAO {
 				dto.setMentor_seq(rs.getInt("mentor_seq"));
 				dto.setName(rs.getString("name"));
 				dto.setReview(rs.getString("review"));
-				dto.setName(rs.getString("name"));
 				reviewList.add(dto);
 				
 			}
