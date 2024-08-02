@@ -161,7 +161,9 @@ public class MenteeDAO {
 		String name = null;
 		getCnnection();
 
-		String sql = "select MENTOR_SEQ from MENTORING where  MENTEE_SEQ =?";
+		String sql = "select MENTOR_SEQ from M"
+				+ ""
+				+ "ENTORING where  MENTEE_SEQ =?";
 
 		try {
 			pstmt = con.prepareStatement(sql);
