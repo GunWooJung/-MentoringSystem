@@ -10,6 +10,7 @@ import java.util.List;
 
 import mentoring.dto.MenteeDTO;
 import mentoring.dto.MentorDTO;
+import mentoring.dto.ReviewDTO;
 
 public class MenteeDAO {
 
@@ -450,40 +451,39 @@ public class MenteeDAO {
 		return write;
 	}
 	
-	public List<MentorDTO>  ReviewPossibility(int mentee_seq){
-		List<MentorDTO> list = new ArrayList<>();
+
+	public List<ReviewDTO> reviewList(){
+		List<ReviewDTO> reviewList = null;
 		getCnnection();
-		String sql = "select * from  end,mentor where mentee_seq = ? and end.mentor_seq=mentor.mentor_seq";
+		String sql = "select * from review";
+		
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1,  mentee_seq);
 			rs = pstmt.executeQuery();
 			
-			while (rs.next()) {
-				MentorDTO dto = new MentorDTO();
+			while(rs.next()) {
+				reviewList = new ArrayList<>();
+				ReviewDTO dto = new ReviewDTO();
 				dto.setMentor_seq(rs.getInt("mentor_seq"));
-				dto.setName(rs.getString("name"));
-				list.add(dto);
+				dto.setReview(rs.getString("review"));
+				reviewList.add(dto);
 			}
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			try {
-				if (pstmt != null)
-					pstmt.close();
-				if (con != null)
-					con.close();
-				if (rs != null)
+				if(rs != null)
 					rs.close();
+				if(pstmt != null)
+					pstmt.close();
+				if(con != null)
+					con.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}
-	
-		
-		return list;
+		}		
+		return reviewList;
+
 	}
 
 }
