@@ -162,7 +162,9 @@ public class MenteeDAO {
 		String name = null;
 		getCnnection();
 
-		String sql = "select MENTOR_SEQ from MENTORING where  MENTEE_SEQ =?";
+		String sql = "select MENTOR_SEQ from M"
+				+ ""
+				+ "ENTORING where  MENTEE_SEQ =?";
 
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -453,7 +455,7 @@ public class MenteeDAO {
 	
 
 	public List<ReviewDTO> reviewList(){
-		List<ReviewDTO> reviewList = new ArrayList<>();;
+		List<ReviewDTO> reviewList = new ArrayList<>();
 		getCnnection();
 		String sql = "select * from review";
 		
@@ -464,6 +466,7 @@ public class MenteeDAO {
 			while(rs.next()) {
 				ReviewDTO dto = new ReviewDTO();
 				dto.setMentor_seq(rs.getInt("mentor_seq"));
+				dto.setName(rs.getString("name"));
 				dto.setReview(rs.getString("review"));
 				reviewList.add(dto);
 				
