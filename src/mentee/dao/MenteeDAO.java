@@ -457,7 +457,8 @@ public class MenteeDAO {
 	public List<ReviewDTO> reviewList(){
 		List<ReviewDTO> reviewList = new ArrayList<>();
 		getCnnection();
-		String sql = "select * from review";
+		String sql = "select * from review "
+				+ "join mentor using(mentor_seq)";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -468,6 +469,7 @@ public class MenteeDAO {
 				dto.setMentor_seq(rs.getInt("mentor_seq"));
 				dto.setName(rs.getString("name"));
 				dto.setReview(rs.getString("review"));
+				dto.setName(rs.getString("mentor.name"));
 				reviewList.add(dto);
 				
 			}
