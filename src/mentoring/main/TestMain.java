@@ -16,7 +16,7 @@ public class TestMain {
 		MentorDAO mentorDAO = MentorDAO.getInstance();
 		
 		
-		int list =menteeDAO.reviewWrite(0,0,"null");
+		List<MentorDTO>list =menteeDAO.ReviewPossibility(4);
 
 		
 		System.out.println(list);
@@ -24,5 +24,6 @@ public class TestMain {
 
 	}
 
+	
 }
 

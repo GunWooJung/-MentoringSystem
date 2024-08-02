@@ -451,6 +451,7 @@ public class MenteeDAO {
 		return write;
 	}
 	
+
 	public List<ReviewDTO> reviewList(){
 		List<ReviewDTO> reviewList = null;
 		getCnnection();
@@ -482,6 +483,43 @@ public class MenteeDAO {
 			}
 		}		
 		return reviewList;
-	}
 
+	}
+	
+	public List<MentorDTO>  ReviewPossibility(int mentee_seq){
+		List<MentorDTO> list = new ArrayList<>();
+		getCnnection();
+		String sql = "select * from  end,mentor where mentee_seq = ? and end.mentor_seq=mentor.mentor_seq";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1,  mentee_seq);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				MentorDTO dto = new MentorDTO();
+				dto.setMentor_seq(rs.getInt("mentor_seq"));
+				dto.setName(rs.getString("name"));
+				list.add(dto);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+				if (rs != null)
+					rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	
+		
+		return list;
+
+}
 }
