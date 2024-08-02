@@ -419,5 +419,35 @@ public class MenteeDAO {
 		}
 		return list;
 	}
+	
+	public int reviewWrite(int mentee_seq, int mentor_seq, String reivew) {
+		int write =0;
+		getCnnection();
+		String sql = "insert into review values(?,?,?)";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, mentor_seq);
+			pstmt.setInt(2, mentee_seq);
+			pstmt.setString(3, reivew);
+			
+			write = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return write;
+	}
 
 }
