@@ -201,39 +201,57 @@ public class MentorDAO {
 	}
 
 	public boolean MentoringEnd(int mentor_seq) {
-		int su = 0;
-		int su2 = 0;
-		boolean end = false;
-		getConnection();
-		String sql = "delete mentoring where mentor_seq = ? ";
-		String sql2 = "update mentor set status = 0 where mentor_seq = ?"; 
-		try {
-			pstmt  = con.prepareStatement(sql);
-			pstmt.setInt(1, mentor_seq);
-			su = pstmt.executeUpdate();
-			if(su == 1) {
-				pstmt = con.prepareStatement(sql2);
-				pstmt.setInt(1, mentor_seq);
-				su2 = pstmt.executeUpdate();
-				if(su2 == 1) {
-					end = true;
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if(pstmt != null)
-					pstmt.close();
-				if(con != null)
-					con.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return end;
-	}
+	    boolean end = false;
+	    getConnection();
+	    String sql = "select mentee_seq from mentoring where mentor_seq = ?";
+	    String sql2 = "insert into end values(?,?)";
+	    String sql3 = "delete from mentoring where mentor_seq = ?";
+	    String sql4 = "update mentor set status = 0 where mentor_seq = ?";
+	    try {
+	        pstmt = con.prepareStatement(sql);
+	        pstmt.setInt(1, mentor_seq);
+	        rs = pstmt.executeQuery();
 
+	        if(rs.next()) {
+	            int mentee_seq = rs.getInt("mentee_seq");
+	            pstmt = con.prepareStatement(sql2);
+	            pstmt.setInt(1, mentor_seq);
+	            pstmt.setInt(2, mentee_seq);
+	            int su = pstmt.executeUpdate();
+	            
+	            if(su == 1) {
+	                pstmt = con.prepareStatement(sql3);
+	                pstmt.setInt(1, mentor_seq);
+	                int su2 = pstmt.executeUpdate();
+	                
+	                if(su2 == 1) {
+	                    pstmt = con.prepareStatement(sql4);
+	                    pstmt.setInt(1, mentor_seq);
+	                    int su3 = pstmt.executeUpdate();
+	                    
+	                    if(su3 == 1) {
+	                        end = true;
+	                    }
+	                }
+	            }
+	            
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }finally {
+	        try {
+	            if(rs != null)
+	                rs.close();
+	            if(pstmt != null)
+	                pstmt.close();
+	            if(con != null)
+	                con.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    return end;
+	}
 	public boolean MentoringAccept(int mentor_seq, int mentee_seq) {
 		getConnection();
 		boolean accept = false;
