@@ -140,24 +140,31 @@ public class MenteeMainService implements MenteeService {
 					List<MentorDTO> list = dao.ReviewPossibility(userSequence);
 					if(list.size() == 0) {
 						System.out.println("멘토링이 종료된 목록이 없습니다.");
+						System.out.println("\n\n");
+						System.out.println("-----------------------------------------------");	
+						System.out.println("\n\n");
 					}
 					else {
-						System.out.println("리뷰를 작성할 멘토 번호를 선택하세요.");
-						System.out.println("멘토 번호\t멘토 이름");
+						System.out.println("      ╔════════════════════════════════════════╗");
+						System.out.println("            ◈ 리뷰를 작성할 멘토 번호를 선택하세요.");
+						System.out.println("                  멘토 번호\t멘토 이름");
 						for(MentorDTO dto : list) {
-							System.out.println(dto.getMentor_seq()+"\t"+dto.getName());
+							System.out.println("\t\t\t" + dto.getMentor_seq()+"\t"+dto.getName());
 						}
-						System.out.print("멘티 번호 : ");
+						System.out.println();
+						System.out.print("                 ◈ 멘티 번호 : ");
 						int mentor_seq = sc.nextInt();
 						sc.nextLine();
-						System.out.print("리뷰 내용 : ");
+						System.out.print("             ◈  리뷰 내용 : ");
 						String review = sc.nextLine();
 						int result = dao.reviewWrite(userSequence, mentor_seq , review);
 						if(result == 1) {
-							System.out.println("리뷰가 작성되었습니다.");
+							System.out.println("                 ♥ 리뷰가 작성되었습니다. ♥");
+							System.out.println("      ╚═════════════════════════════════════════╝");
 						}
 						else {
-							System.out.println("오류 : 리뷰 작성 실패!");
+							System.out.println("                 ※ 오류 : 리뷰 작성 실패!");
+							System.out.println("      ╚═════════════════════════════════════════╝");
 						}
 					}
 
@@ -166,14 +173,22 @@ public class MenteeMainService implements MenteeService {
 					List<ReviewDTO> list = dao.reviewList();
 					if(list == null) {
 						System.out.println("등록된 리뷰가 없습니다.");
+						System.out.println("\n\n");
+						System.out.println("-----------------------------------------------");	
+						System.out.println("\n\n");
 					}
 					else {
 						for(ReviewDTO dto : list) {
-							System.out.println("멘토 번호 : "+dto.getMentor_seq()+
-									"\n멘토이름 : "+dto.getName()+
-									"\n리뷰 내용 : "+dto.getReview());
+							System.out.println("      ╔════════════════════════════════════════╗");
+							System.out.println("              ◈ 멘토 번호 : "+dto.getMentor_seq());
+							System.out.println("              ◈ 멘토이름 : " + dto.getName());
+							System.out.println("              ◈ 리뷰 내용 : " +dto.getReview());
+							System.out.println("      ╚════════════════════════════════════════╝");
 							System.out.println();						
 						}
+						System.out.println("\n\n");
+						System.out.println("-----------------------------------------------");	
+						System.out.println("\n\n");
 					}
 				} else if (num == 5) {
 					return;
