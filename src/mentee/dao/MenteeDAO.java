@@ -453,7 +453,7 @@ public class MenteeDAO {
 	
 
 	public List<ReviewDTO> reviewList(){
-		List<ReviewDTO> reviewList = null;
+		List<ReviewDTO> reviewList = new ArrayList<>();;
 		getCnnection();
 		String sql = "select * from review";
 		
@@ -462,11 +462,14 @@ public class MenteeDAO {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				reviewList = new ArrayList<>();
 				ReviewDTO dto = new ReviewDTO();
 				dto.setMentor_seq(rs.getInt("mentor_seq"));
 				dto.setReview(rs.getString("review"));
 				reviewList.add(dto);
+				
+			}
+			if(reviewList.size() == 0) {
+				reviewList = null;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
