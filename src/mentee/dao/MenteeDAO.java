@@ -10,6 +10,7 @@ import java.util.List;
 
 import mentoring.dto.MenteeDTO;
 import mentoring.dto.MentorDTO;
+import mentoring.dto.ReviewDTO;
 
 public class MenteeDAO {
 
@@ -421,5 +422,106 @@ public class MenteeDAO {
 		}
 		return list;
 	}
+	
+	public int reviewWrite(int mentee_seq, int mentor_seq, String reivew) {
+		int write =0;
+		getCnnection();
+		String sql = "insert into review values(?,?,?)";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, mentor_seq);
+			pstmt.setInt(2, mentee_seq);
+			pstmt.setString(3, reivew);
+			
+			write = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return write;
+	}
+	
 
+	public List<ReviewDTO> reviewList(){
+		List<ReviewDTO> reviewList = null;
+		getCnnection();
+		String sql = "select * from review";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				reviewList = new ArrayList<>();
+				ReviewDTO dto = new ReviewDTO();
+				dto.setMentor_seq(rs.getInt("mentor_seq"));
+				dto.setReview(rs.getString("review"));
+				reviewList.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null)
+					rs.close();
+				if(pstmt != null)
+					pstmt.close();
+				if(con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}		
+		return reviewList;
+
+	}
+	
+	public List<MentorDTO>  ReviewPossibility(int mentee_seq){
+		List<MentorDTO> list = new ArrayList<>();
+		getCnnection();
+		String sql = "select * from  end,mentor where mentee_seq = ? and end.mentor_seq=mentor.mentor_seq";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1,  mentee_seq);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				MentorDTO dto = new MentorDTO();
+				dto.setMentor_seq(rs.getInt("mentor_seq"));
+				dto.setName(rs.getString("name"));
+				list.add(dto);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+				if (rs != null)
+					rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	
+		
+		return list;
+
+}
 }
